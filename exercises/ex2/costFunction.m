@@ -28,9 +28,9 @@ J = ( -y'*log(h) - (1-y)'*log(1-h) ) / m;
 %    grad(row) = 
 %%end
 
-grad = theta - (X'*(h-y)) / m;
+%grad = theta - (X'*(h-y)) / m;
 
-
+grad = X'*(h - y) / m;
 
 
 
