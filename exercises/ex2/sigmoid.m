@@ -10,7 +10,11 @@ g = zeros(size(z));
 %               vector or scalar).
 
 
-
+for i = 1:rows(z)
+	for j = 1:columns(z)
+	    g(i,j) = 1 / (1 + e^-z(i,j));
+	end
+end 
 
 
 % =============================================================

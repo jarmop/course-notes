@@ -21,7 +21,14 @@ grad = zeros(size(theta));
 %
 
 
+h = sigmoid(X*theta);
+J = ( -y'*log(h) - (1-y)'*log(1-h) ) / m;
 
+%for row = 1:rows(theta)
+%    grad(row) = 
+%%end
+
+grad = theta - (X'*(h-y)) / m;
 
 
 
