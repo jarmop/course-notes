@@ -22,13 +22,14 @@ thetaOK = theta(2:end,:);
 
 h = sigmoid(X*theta);
 %J = ( -y'*log(h) - (1-y)'*log(1-h) ) / m + lambda * theta.^2 / 2*m;
-J = ( -y'*log(h) - (1-y)'*log(1-h) ) / m;
-
-%grad = X'*(h - y) / m;
-grad = X'*(h - y) / m + lambda*theta / m;
+%J = ( -y'*log(h) - (1-y)'*log(1-h) ) / m + lambda;
+J = ( -y'*log(h) - (1-y)'*log(1-h) ) / m + lambda * sum(thetaOK.^2) / (2*m);
 
 grad(1,:) = X(:,1)'*(h - y) / m;
+%grad(1,:) = X(:,1)'*(sigmoid(X(:,1)*theta(1,:)) - y) / m;
+
 grad(2:end,:) = XOK'*(h - y) / m + lambda*thetaOK / m;
+%grad(2:end,:) = XOK'*(sigmoid(XOK*thetaOK) - y) / m + lambda*thetaOK / m;
 
 % =============================================================
 
