@@ -72,7 +72,11 @@ for i=1:m
 
 	J = J + ( -yx'*log(h) - (1-yx)'*log(1-h) );
 end
-J = J / m;
+
+Theta1NoBias = Theta1(:,2:end);
+Theta2NoBias = Theta2(:,2:end);
+reg = lambda * (sum(sum(Theta1NoBias.^2)) + sum(sum(Theta2NoBias.^2))) / (2*m);
+J = J / m + reg;
 
 % -------------------------------------------------------------
 
