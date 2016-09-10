@@ -63,20 +63,31 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 X = [ones(m,1) X];
-for i=1:m
-    a = sigmoid(Theta1*X(i,:)');
-	a = [1;a];
-	h = sigmoid(Theta2*a);
-	yx = zeros(size(h));
-	yx(y(i,:)) = 1;
-
-	J = J + ( -yx'*log(h) - (1-yx)'*log(1-h) );
-end
-
 Theta1NoBias = Theta1(:,2:end);
 Theta2NoBias = Theta2(:,2:end);
+for i=1:m
+	a1 = X(i,:)';
+	z2 = Theta1*a1;
+    a2 = sigmoid(z2);
+	a2 = [1;a2];
+	a3 = sigmoid(Theta2*a2);
+	yx = zeros(size(a3));
+	yx(y(i,:)) = 1;
+
+	J = J + ( -yx'*log(a3) - (1-yx)'*log(1-a3) );
+
+	d3i = a3 - yx;
+	d2i = (Theta2NoBias' * d3i) .* sigmoidGradient(z2);
+
+	Theta1_grad = Theta1_grad + d2i * a1';
+	Theta2_grad = Theta2_grad + d3i * a2';
+end
+
 reg = lambda * (sum(sum(Theta1NoBias.^2)) + sum(sum(Theta2NoBias.^2))) / (2*m);
 J = J / m + reg;
+
+Theta1_grad = Theta1_grad / m;
+Theta2_grad = Theta2_grad / m;
 
 % -------------------------------------------------------------
 
