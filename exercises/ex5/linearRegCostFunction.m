@@ -23,6 +23,10 @@ error = X * theta - y;
 reg = lambda * sum(theta(2:end,:) .^ 2) / (2 * m);
 J = error' * error / (2 * m) + reg;
 
+grad(1,:) = X(:,1)' * error / m;
+grad_reg = lambda * theta(2:end,:) / m;
+grad(2:end,:) = X(:,2:end)' * error / m + grad_reg;
+
 % =========================================================================
 
 grad = grad(:);
