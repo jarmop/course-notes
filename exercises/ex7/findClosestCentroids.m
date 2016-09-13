@@ -21,7 +21,16 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
+for i=1:size(X,1)
+	smallestError = -1;
+	for j=1:size(centroids,1)
+	    error = sum((X(i,:) - centroids(j,:)).^2);
+		if (smallestError < 0 || error < smallestError)
+	        smallestError = error;
+			idx(i) = j;
+		endif
+	end
+end
 
 % =============================================================
 
